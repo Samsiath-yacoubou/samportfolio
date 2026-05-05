@@ -108,7 +108,7 @@ body {
     display: block;
     width: 25px;
     height: 2px;
-    background: var(--bg-dark);
+    background: currentColor;
     margin: 5px 0;
     transition: var(--transition);
 }
@@ -706,12 +706,20 @@ footer { padding: 60px 0; border-top: 1px solid var(--border); }
     .nav-menu a { font-size: 1.8rem; font-family: var(--font-serif); }
 
     .nav-menu.active { right: 0; }
+    
+    .nav-toggle.active span { background: var(--bg-dark); }
+    .nav-active .nav-logo { color: var(--bg-dark) !important; }
+    .nav-logo { position: relative; z-index: 1100; }
 
     .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .nav-toggle.active span:nth-child(2) { opacity: 0; }
     .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-    .hero-image-area { display: none; }
+    .hero-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-content { text-align: center; order: 1; }
+    .hero-image-area { display: flex; order: 2; justify-content: center; }
+    .image-card { max-width: 400px; }
+    
     .about-grid { grid-template-columns: 1fr; gap: 4rem; }
     .exp-item { grid-template-columns: 1fr; gap: 1.5rem; }
     .bento-layout { grid-template-columns: 1fr; grid-template-rows: auto; }
@@ -743,4 +751,31 @@ footer { padding: 60px 0; border-top: 1px solid var(--border); }
     
     .doc-item { padding: 2rem; }
     .ticker-item { font-size: 1.5rem; margin-right: 3rem; }
+    .main-quote { font-size: 1.8rem; }
+    .hero-desc { font-size: 1.1rem; }
+}
+
+/* --- Animations & UI Effects --- */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: transform 0.15s ease-out;
+    transform: translate(-50%, -50%);
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
 }

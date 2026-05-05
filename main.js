@@ -60,10 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Mobile Menu Toggle (Simplified)
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.querySelector('.nav-menu');
-    if (navToggle) {
+    if (navToggle && navbar) {
         navToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
+            navbar.classList.toggle('nav-active');
         });
 
         // Close menu when a link is clicked
@@ -71,53 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
+                navbar.classList.remove('nav-active');
             });
         });
     }
-});
 
-// Dynamic Reveal CSS
-const style = document.createElement('style');
-style.textContent = `
-    .custom-cursor {
-        position: fixed;
-        width: 15px;
-        height: 15px;
-        background: var(--accent);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        mix-blend-mode: difference;
-        transition: transform 0.1s ease;
-        transform: translate(-50%, -50%);
+    // 6. Handle Touch Devices for Cursor
+    if ('ontouchstart' in window) {
+        cursor.style.display = 'none';
     }
-    .reveal-on-scroll {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-on-scroll.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    .nav-toggle {
-        display: none;
-        cursor: pointer;
-    }
-    @media (max-width: 1024px) {
-        .nav-toggle { display: block; }
-        .nav-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: white;
-            flex-direction: column;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .nav-menu.open { display: flex; }
-    }
-`;
-document.head.appendChild(style);
+});
